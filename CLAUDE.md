@@ -23,9 +23,11 @@ Read each step in order, or jump to the one you need.
 15. [OpenCode Quota Rotation](15-opencode-quota-rotation.md) — IP rotation on rate limits (Opus 4.6 only)
 16. [Android as Network Proxy](16-android-proxy-setup.md) — use a phone to bypass network blocks (Opus 4.6 only)
 17. [Design Skill in Token-Saver Mode](17-design-skill-token-saver.md) — best design skill, used cheaply
+18. [Status Line](18-status-line.md) — 3-line bar: limits, context, tools, network, remote control
 
 ## Scripts
 
 - [`scripts/extract_pdf.py`](scripts/extract_pdf.py) — PDF to text without the model
 - [`scripts/extract_image_ocr.py`](scripts/extract_image_ocr.py) — screenshot OCR without the model
+- [`scripts/statusline.py`](scripts/statusline.py) — 3-line status bar, zero model tokens
 - [`scripts/list_free_models.py`](scripts/list_free_models.py) — list free OpenCode models from models.dev
