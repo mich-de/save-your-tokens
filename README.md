@@ -14,6 +14,7 @@ A set of rules, scripts and conventions born from real daily use of Claude Code,
 - **CLI over MCP.** `gh`, `vercel`, `adb` cost zero context at boot and return compact output only when called.
 - **ASCII before pixels.** Sketch the layout in ASCII first, iterate cheaply, write production code after approval.
 - **Android as a network proxy.** When your network blocks AI services, route traffic through a phone over USB tethering + VPN.
+- **Design skill, cheaply.** Use the most installed design skill (`frontend-design`) with wireframe-first, one-pass generation and a short design brief.
 
 ## Structure
 

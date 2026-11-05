@@ -22,6 +22,7 @@ Read each step in order, or jump to the one you need.
 14. [OpenCode Free Models](14-opencode-free-models.md) — find $0 models deterministically
 15. [OpenCode Quota Rotation](15-opencode-quota-rotation.md) — IP rotation on rate limits
 16. [Android as Network Proxy](16-android-proxy-setup.md) — use a phone to bypass network blocks
+17. [Design Skill in Token-Saver Mode](17-design-skill-token-saver.md) — best design skill, used cheaply
 
 ## Scripts
 
