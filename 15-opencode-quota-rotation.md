@@ -12,12 +12,12 @@ When OpenCode hits a free-tier quota (HTTP 429, "Free usage limit reached", rate
 ## Manual trigger
 
 ```
-/fritz-newip
+/newip
 ```
 
 Or check status:
 ```
-fritz-reconnect -Status
+netutil -Status
 ```
 
 ## Requirements

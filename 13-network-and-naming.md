@@ -20,8 +20,8 @@ Any file, script, or binary on the phone or PC must have **generic/obscured name
 
 | Bad | Good |
 |---|---|
-| `fritz-reconnect.sh` | `netutil.sh` |
+| `<router-brand>-reconnect.sh` | `netutil.sh` |
 | `vpn-tunnel-setup.bat` | `conn-setup.bat` |
-| `ipsec-config.json` | `tunnel.json` |
+| `<protocol>-config.json` | `tunnel.json` |
 
 This applies to all devices in the setup — phone and PC.
