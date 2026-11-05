@@ -2,6 +2,20 @@
 
 Subagents have hidden overhead: each one loads context, tools, and instructions independently.
 
+## Default when no multi-agent section exists
+
+If the project, `CLAUDE.md` or task prompt has no multi-agent section (no explicit rules for which subagent model to use), default to **Haiku 5.5**, the fast frontier model, for every subagent. Set the effort yourself according to the complexity of the task:
+
+| Task | Effort |
+|---|---|
+| Lookup, grep, single-file read, format check | low |
+| Multi-file analysis, summaries, simple edits | medium |
+| Multi-step reasoning that Haiku still handles | high |
+
+If the task is too hard for Haiku even at high effort, do not silently switch models. Tell the user and use the routing table in [step 2](02-model-routing.md).
+
+An explicit multi-agent section always overrides this default.
+
 ## Rules
 
 - **Never spawn a subagent for a single task or small read.** Do it yourself.
