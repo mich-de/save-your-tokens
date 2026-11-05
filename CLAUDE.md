@@ -20,8 +20,8 @@ Read each step in order, or jump to the one you need.
 12. [Anti-Patterns and Output Style](12-anti-patterns-and-output.md) — what to avoid, and the concise output style
 13. [Network and Naming Rules](13-network-and-naming.md) — proxy routing, `curl.exe` checks, generic file names
 14. [OpenCode Free Models](14-opencode-free-models.md) — find $0 models with a command, plus quota limits
-15. [OpenCode Quota Rotation](15-opencode-quota-rotation.md) — IP rotation on rate limits
-16. [Android as Network Proxy](16-android-proxy-setup.md) — use a phone to bypass network blocks
+15. [OpenCode Quota Rotation](15-opencode-quota-rotation.md) — IP rotation on rate limits (Opus 4.6 only)
+16. [Android as Network Proxy](16-android-proxy-setup.md) — use a phone to bypass network blocks (Opus 4.6 only)
 17. [Design Skill in Token-Saver Mode](17-design-skill-token-saver.md) — best design skill, used cheaply
 
 ## Scripts

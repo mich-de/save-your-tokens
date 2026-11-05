@@ -1,5 +1,7 @@
 # 15. OpenCode Quota Rotation
 
+> **Model: Opus 4.6 only.** Read and apply this chapter only in a session running Opus 4.6 (see [step 2](02-model-routing.md)). On any other model, tell the user to run `/model` first and do not work from this file.
+
 When OpenCode hits a free-tier quota (HTTP 429, "Free usage limit reached", rate limit), the IP needs to rotate.
 
 ## How it works

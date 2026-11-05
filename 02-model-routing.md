@@ -10,6 +10,7 @@ Pick the model once per session based on the task. Never switch mid-chat without
 | Bulk subagent work (10+ sources, 40+ files) | Haiku 5.5 | — |
 | Deep synthesis, complex code in subagents | Opus 5.5 | — |
 | Reversing in subagents | Opus 4.6 | — |
+| Chapters 15 and 16 (quota rotation, Android proxy) | Opus 4.6 | medium |
 
 ## Rules
 
