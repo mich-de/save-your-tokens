@@ -31,6 +31,38 @@ Common caveats:
 
 To browse more: [loqimean/awesome-claude-code-hooks](https://github.com/loqimean/awesome-claude-code-hooks) (curated, by category).
 
+## Install globally (all projects)
+
+Hooks at **user** level (`~/.claude/`) run in every project; project-level ones (`.claude/` in the repo) only there.
+
+`/plugin` works only in Claude Code (terminal, IDE or desktop Code tab), not in the Claude chat app ("`/plugin` isn't available in this environment"). Run it on your own machine.
+
+Inside a Claude Code session:
+
+```
+/plugin marketplace add karanb192/claude-code-hooks
+/plugin install guard-pack@claude-code-hooks
+/plugin install subagent-spawn-cap@claude-code-hooks
+```
+
+Pick scope **user** when asked: user = all your projects, project = everyone using that repo, local = only you in that repo.
+
+From a terminal, the same without opening a session:
+
+```bash
+claude plugin marketplace add karanb192/claude-code-hooks
+claude plugin install guard-pack@claude-code-hooks --scope user
+claude plugin install subagent-spawn-cap@claude-code-hooks --scope user
+```
+
+Manual alternative: copy the script into `~/.claude/hooks/` and register it in `~/.claude/settings.json` (not the project one). Project settings add to user settings, so a user hook runs everywhere.
+
+Then:
+
+- Restart Claude Code and check with `/hooks` in a new session.
+- Install between sessions, not mid-task ([step 20](20-prompt-cache-discipline.md)).
+- Need a project without a hook? Disable that plugin there with `/plugin`.
+
 ## PDF extraction
 
 Native PDF read costs 1,500–3,000 tokens per page. When you only need the text:
