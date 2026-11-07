@@ -6,6 +6,31 @@ Prompts are probabilistic — the model might skip a rule. Hooks are determinist
 
 Use hooks for mandatory rules: "always do X when Y" belongs in a hook, not in a prompt.
 
+Hooks cost zero tokens, except the output they return to the model (`additionalContext`, stdout on some events). A hook that injects text on every turn is a CLAUDE.md you can't see: check what it returns.
+
+## Recommended hooks (code-reviewed)
+
+Third-party hooks run with your permissions. The projects below were read file by file in November 2026 (no code executed). Re-check before installing a newer version.
+
+| Hook | Source | Verdict | Why |
+|---|---|---|---|
+| `guard-pack` | [karanb192/claude-code-hooks](https://github.com/karanb192/claude-code-hooks) (MIT) | Recommended | Seven safety guards (dangerous commands, secrets, git, tests, config) in one PreToolUse process. No network, no deps, fails open. Don't also install the single guards: every check would run twice. |
+| `subagent-spawn-cap` | same | Recommended | Asks at 20 subagent spawns per session, denies at 60. Simple, correct, prunes its own files. Pairs with [step 11](11-subagent-orchestration.md). |
+| `cache-tax` | same | With caveats | Warns (or blocks once with `CACHE_TAX_BLOCK=1`) when your next message would rebuild an expired cache over 50k tokens. Saves only if you act on it; price table is hard-coded. Pairs with [step 20](20-prompt-cache-discipline.md). |
+| `context-hogs` | same | With caveats | Ranks files by context cost (bytes/4, rough). Reports only; saves nothing by itself. |
+| [ecotokens](https://github.com/hansipie/ecotokens) | MIT, build from source | With caveats | Filters Bash output, keeps exit codes and stderr, no telemetry. But: generic outputs over 200 lines keep only the first and last 20 (an error in the middle disappears); stores masked outputs and file snippets on disk; its Read/Grep PostToolUse hook *adds* context on Claude Code. Install only the Bash hook, set `raw_recovery_enabled` off if you don't want logs. |
+| [squeez](https://github.com/claudioemmanuel/squeez) | Apache-2.0 | Avoid by default | Auto-approves almost every Bash command (`permissionDecision: allow`) with a short substring deny list, rewrites `~/.claude/CLAUDE.md` every session (persona + prose compression), takes over the status line and reads the OAuth token, collapses successful `git push`/installs to `ok`. npm install pipes an unpinned script to `sh`. Not malicious, but it bypasses permission prompts and edits the prefix ([step 20](20-prompt-cache-discipline.md)). |
+
+Not recommended: the popular "7 token-saving hooks" gist by yurukusa ships only the `settings.json` snippet; the scripts are in a paid book and the quick install runs `npx` on another repo. Nothing to review, so nothing to install.
+
+Common caveats:
+
+- `guard-pack` and the karanb192 guards log full commands to `~/.claude/hooks-logs/`, never pruned: secrets typed inline end up there. Clean the folder periodically.
+- Prefer hooks that **warn** or **filter** over hooks that **approve**: a hook returning `allow` skips your permission prompts.
+- Measure before and after any hook ([step 22](22-idle-burn-and-usage-audit.md)).
+
+To browse more: [loqimean/awesome-claude-code-hooks](https://github.com/loqimean/awesome-claude-code-hooks) (curated, by category).
+
 ## PDF extraction
 
 Native PDF read costs 1,500–3,000 tokens per page. When you only need the text:

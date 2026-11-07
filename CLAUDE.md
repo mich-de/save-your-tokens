@@ -12,7 +12,7 @@ Read each step in order, or jump to the one you need.
 4. [HANDOFF.md Protocol](04-handoff-protocol.md) — the 6-section handoff file
 5. [ASCII Wireframe Gate](05-ascii-wireframe-gate.md) — sketch before code
 6. [Memory and Skill Hygiene](06-memory-and-skill-hygiene.md) — trim idle MCPs, instruction files and skills
-7. [Deterministic Hooks and Media](07-deterministic-hooks-and-media.md) — hooks over prompts, local scripts for PDF/OCR
+7. [Deterministic Hooks and Media](07-deterministic-hooks-and-media.md) — hooks over prompts, code-reviewed hooks, local scripts for PDF/OCR
 8. [CLI over MCP](08-cli-over-mcp.md) — prefer CLIs to MCP servers
 9. [Graph Navigation](09-graph-navigation.md) — when to use a code graph
 10. [Deterministic Code Conversion](10-deterministic-code-conversion.md) — AI for judgment, code for everything else
