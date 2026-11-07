@@ -30,6 +30,13 @@ Read each step in order, or jump to the one you need.
 22. [Idle Burn and Usage Audit](22-idle-burn-and-usage-audit.md) — tokens spent while idle, and A/B-testing harness changes
 23. [Doctor Prompt Audit](23-doctor-prompt-audit.md) — `/doctor prompt-audit` to find stale, contradictory or outdated instructions
 
+## Scripts
+
+- [`scripts/extract_pdf.py`](scripts/extract_pdf.py) — PDF to text without the model
+- [`scripts/extract_image_ocr.py`](scripts/extract_image_ocr.py) — screenshot OCR without the model
+- [`scripts/statusline.py`](scripts/statusline.py) — 3-line status bar, zero model tokens
+- [`scripts/list_free_models.py`](scripts/list_free_models.py) — list free OpenCode models from models.dev
+
 ## Cache discipline (harness)
 
 - Model + effort decided at session start. Never `/model` mid-task; use a subagent (`model: haiku`) for cheap side work.
@@ -43,10 +50,3 @@ Read each step in order, or jump to the one you need.
 
 When compacting, keep: current task goal, files changed, failing tests and errors,
 decisions with reasons, next step. Drop: exploration output, full logs, resolved errors.
-
-## Scripts
-
-- [`scripts/extract_pdf.py`](scripts/extract_pdf.py) — PDF to text without the model
-- [`scripts/extract_image_ocr.py`](scripts/extract_image_ocr.py) — screenshot OCR without the model
-- [`scripts/statusline.py`](scripts/statusline.py) — 3-line status bar, zero model tokens
-- [`scripts/list_free_models.py`](scripts/list_free_models.py) — list free OpenCode models from models.dev
