@@ -1,50 +1,51 @@
-# 23. Doctor Prompt Audit
+# 23. Doctor and Prompt Audit
 
-`/doctor prompt-audit` (alias `/checkup prompt-audit`, Claude Code 2.1.283+) reviews your own setup for instructions that waste context: stale facts, contradictions and prompting patterns written for older models. CLAUDE.md and output styles ride on every request ([step 19](19-harness-anatomy.md)), so every dead line costs tokens on every turn.
+Instruction files ride on every request ([step 19](19-harness-anatomy.md)). Stale, contradictory or over-specified rules cost tokens on every turn and make the agent work around them. Claude Code has built-in audits for this: run them instead of reviewing by hand.
 
-## What it reads
+Requires Claude Code **v2.1.283 or later** (`claude --version`).
 
-CLAUDE.md, AGENTS.md, CLAUDE.local.md, skills, subagents, slash commands, rules and output styles. It skips files that may hold secrets (`.mcp.json`, settings files): it is not a security audit.
+## The three commands
 
-## What it finds
+| Command | What it checks | Use it for |
+|---|---|---|
+| `/doctor prompt-audit` (alias `/checkup prompt-audit`) | Instruction text: CLAUDE.md, CLAUDE.local.md, AGENTS.md, rules, skills, commands, subagents, output styles | Dated, conflicting or stale instructions |
+| `/skill-doctor` | Skills: context cost and actual usage | Pruning or disabling skills that cost context but are never used |
+| `/doctor` (alias `/checkup`) | General setup | Install and configuration health |
 
-| Category | Example |
-|---|---|
-| Stale paths | CLAUDE.md references a script that no longer exists |
-| Stale commands | A skill runs an `npm` script removed from `package.json` |
-| Contradictions | CLAUDE.md and a skill give opposite instructions |
-| Older-model patterns | "Think step by step", repeated `MUST`, long history stories |
-| Tool descriptions, request configuration | Instructions that fight the harness |
+Bare `claude doctor` from the terminal is a different, read-only install diagnostic.
 
-Each finding has file and line, evidence, confidence and an action (rewrite, remove, add, flag). It proposes a diff; nothing is applied until you confirm each hunk.
+## What `/doctor prompt-audit` flags
 
-## How to run it
+- **Dated prompt text:** shouting (MUST, NEVER, CRITICAL) without reasons; hedges on real requirements.
+- **Replaced scaffolds:** "think step by step", scratchpad tags and other tricks the model or API now handles.
+- **Over-specification:** choreographed steps for judgment work, long prohibition lists.
+- **Fossils:** workarounds for a retired model's habits.
+- **Thinking instructions** that the current model cannot follow (on Opus 5.5 effort is the only control).
+- **Stale facts:** paths, commands and flags that no longer exist in the repo.
+- **Contradictions** between instruction files (`git blame` decides which is newer; safety rules are left for you to decide).
+- **Unenforced instructions:** rules nothing checks.
+- **History narratives:** incident IDs, past tense, pinned model names.
 
-Interactive, from the project root:
+Output: a report ordered by confidence, each finding with `file:line`, the quoted text, why it is obsolete and a proposed edit. **Nothing changes until you ask Claude to apply the edits.** It never reads settings, `.mcp.json` or `~/.claude.json` (they can hold secrets).
 
-```
-/doctor prompt-audit
-```
+## How to run it cheaply
 
-Headless and report-only:
+1. Set the target model first with `/model`, at session start ([step 20](20-prompt-cache-discipline.md)): the audit judges instructions against the session's model.
+2. Run it in a dedicated session, then `/clear`: the report is long and you do not want it in your working context.
+3. Narrow the scope when you only changed one thing: `/doctor prompt-audit .claude/skills/deploy/SKILL.md`. Extra words after the command are passed through unchanged and drop the default scope, so do not add comments.
+4. Apply edits between tasks: CLAUDE.md changes only take effect after `/clear`, `/compact` or restart.
+5. Measure before and after with `/context` and a representative task ([step 22](22-idle-burn-and-usage-audit.md)).
 
-```bash
-claude -p "/doctor prompt-audit" --disallowedTools "Edit,Write,NotebookEdit"
-```
+## When to run it
 
-Headless mode cannot read `~/.claude/` or parent folders, so user-level config is excluded: run it interactively to audit global CLAUDE.md and skills too.
+- After every model change, including default-model changes you did not choose.
+- After adding or editing skills, rules or a large CLAUDE.md section.
+- As part of the weekly audit in [step 22](22-idle-burn-and-usage-audit.md), together with `/skill-doctor`.
 
-## Cost and cadence
+## Tips
 
-The audit itself spends tokens, and the cost grows with the size of your config (one reported run: 17 skills, 2 subagents, a 285-line CLAUDE.md → 63 turns, about $4 on Opus). So:
+- Keep reasons in present tense inside the file; keep incident history and model names in commit messages.
+- Before deleting an "unenforced" rule, grep for its exact text: tests or log parsers may match on it.
+- The audit depends on the bundled `claude-api` skill: it will not run if that skill is disabled in `skillOverrides` or `disableBundledSkills` is set.
 
-- Run it after a big setup change, or monthly, not every session.
-- Run it at the start of a fresh session (`/clear` first), not in the middle of a task: the edits to CLAUDE.md only apply after `/clear` anyway ([step 20](20-prompt-cache-discipline.md)).
-- Apply the fixes, then measure before/after with `/context` ([step 22](22-idle-burn-and-usage-audit.md)).
-
-## Not to confuse with
-
-- `/doctor` alone: checks installation and configuration health.
-- `/claude-api prompt-audit`: reviews prompts in apps you build on the Claude API.
-
-Sources: [ayautomate — /doctor prompt-audit, tested](https://www.ayautomate.com/blog/claude-code-prompt-audit), [claudcod — Claude Code Prompt Audit](https://claudcod.com/blog/claude-code-prompt-audit/).
+Sources: [claude/for — How to run /doctor prompt-audit](https://claude-for.com/guides/how-do-i-run-claude-code-doctor-prompt-audit); [max.nardit.com — /doctor prompt-audit](https://max.nardit.com/articles/prompt-audit-claude-md).

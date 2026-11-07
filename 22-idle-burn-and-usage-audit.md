@@ -20,6 +20,7 @@ Agent teams are expensive: each teammate has its own context window (roughly 7×
 2. `/usage` → **Prompt cache (main)** — hit rate and likely causes of misses ([step 20](20-prompt-cache-discipline.md)).
 3. `/insights` — recurring patterns.
 4. `/context` — compare with the baseline from [step 19](19-harness-anatomy.md).
+5. `/doctor prompt-audit` and `/skill-doctor` — clean stale instructions and unused skills ([step 23](23-doctor-prompt-audit.md)).
 
 ## A/B every harness change
 

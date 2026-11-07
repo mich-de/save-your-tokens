@@ -28,6 +28,7 @@ Read each step in order, or jump to the one you need.
 20. [Prompt Cache Discipline](20-prompt-cache-discipline.md) — what breaks the cache, TTLs, golden rules
 21. [Compaction Economics](21-compaction-economics.md) — compact, rewind or clear: warm vs cold cache
 22. [Idle Burn and Usage Audit](22-idle-burn-and-usage-audit.md) — tokens spent while idle, and A/B-testing harness changes
+23. [Doctor and Prompt Audit](23-doctor-prompt-audit.md) — `/doctor prompt-audit` and `/skill-doctor` to clean instruction files
 23. [Doctor Prompt Audit](23-doctor-prompt-audit.md) — `/doctor prompt-audit` to find stale, contradictory or outdated instructions
 
 ## Scripts
