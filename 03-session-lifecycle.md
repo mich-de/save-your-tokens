@@ -8,9 +8,9 @@ At every completed milestone (sub-feature, module, reverse-engineering stage), u
 
 When a path fails, prefer `/rewind` to stacked corrective prompts. Corrective prompts pile up in context and cost tokens on every future turn.
 
-## No `/compact`, no auto-compact
+## No auto-compact mid-task; `/compact` only warm
 
-Summarizing re-processes the entire conversation and can silently drop architectural details you need later. Disabled at boot, never used mid-session.
+Never let auto-compact fire in the middle of a task: the summary can silently drop architectural details you need later. On a cold cache (after a pause beyond the TTL, or a resumed old session) compaction re-processes the whole conversation at full price: use `HANDOFF.md` + `/clear` instead. On a warm cache, a focused `/compact` at the end of a task is cheap. See [step 21](21-compaction-economics.md).
 
 ## 40–50% context ceiling
 

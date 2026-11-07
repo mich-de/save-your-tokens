@@ -24,6 +24,23 @@ Read each step in order, or jump to the one you need.
 16. [Android as Network Proxy](16-android-proxy-setup.md) — use a phone to bypass network blocks (Opus 4.6 only)
 17. [Design Skill in Token-Saver Mode](17-design-skill-token-saver.md) — best design skill, used cheaply
 18. [Status Line](18-status-line.md) — 3-line bar: limits, context, tools, network, remote control
+19. [Harness Anatomy](19-harness-anatomy.md) — what every request resends, and what each feature costs
+20. [Prompt Cache Discipline](20-prompt-cache-discipline.md) — what breaks the cache, TTLs, golden rules
+21. [Compaction Economics](21-compaction-economics.md) — compact, rewind or clear: warm vs cold cache
+22. [Idle Burn and Usage Audit](22-idle-burn-and-usage-audit.md) — tokens spent while idle, and A/B-testing harness changes
+
+## Cache discipline (harness)
+
+- Model + effort decided at session start. Never `/model` mid-task; use a subagent (`model: haiku`) for cheap side work.
+- No MCP/plugin connect/disconnect mid-task. Keep tool search on. Deny rules: scoped, not whole tools.
+- CLAUDE.md edits apply only after `/clear`, `/compact` or restart: edit between tasks.
+- Before a break longer than the cache TTL: finish the task, write `HANDOFF.md`, `/clear` on return.
+- Check `/usage` → "Prompt cache (main)": misses with a likely cause = fix the cause.
+
+# Compact instructions
+
+When compacting, keep: current task goal, files changed, failing tests and errors,
+decisions with reasons, next step. Drop: exploration output, full logs, resolved errors.
 
 ## Scripts
 

@@ -16,5 +16,6 @@ Pick the model once per session based on the task. Never switch mid-chat without
 ## Rules
 
 - The agent cannot switch its own model. If the session is on the wrong one, tell the user which `/model` to choose before working.
-- Lock the choice for the session.
+- Lock the choice for the session. Model and effort are part of the cache key: switching mid-task rebuilds the cache and can cost more than staying on the bigger model ([step 20](20-prompt-cache-discipline.md)).
+- For cheap side work, delegate to a subagent with `model: haiku` instead of `/model`. Avoid `opusplan` if you toggle plan mode often.
 - Periodically audit routines: remove forgotten ones, downgrade over-provisioned ones.

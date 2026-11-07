@@ -8,7 +8,8 @@ A set of rules, scripts and conventions born from real daily use of Claude Code,
 
 ## Key ideas
 
-- **Checkpoint, don't compact.** Write a `HANDOFF.md` at every milestone, then `/clear`. Never auto-compact — it re-processes everything and can drop details.
+- **Checkpoint, compact only warm.** Write a `HANDOFF.md` at every milestone, then `/clear`. Never let auto-compact fire mid-task. A `/compact` at the end of a task with a warm cache is cheap; on a cold cache it re-processes everything ([step 21](21-compaction-economics.md)).
+- **Don't break the prompt cache.** Every turn resends the whole context; it is cheap only while the prefix stays identical. Fix model, effort and tools at session start ([steps 19–20](20-prompt-cache-discipline.md)).
 - **Model routing by task.** Opus 5.5 for code, Opus 4.6 for reverse engineering, Haiku for bulk/scheduled work. Pick once per session.
 - **Deterministic over probabilistic.** If a step is repeatable, make it a script or a hook. The LLM handles judgment; everything else is code.
 - **CLI over MCP.** `gh`, `vercel`, `adb` cost zero context at boot and return compact output only when called.
