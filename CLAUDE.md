@@ -29,6 +29,7 @@ Read each step in order, or jump to the one you need.
 21. [Compaction Economics](21-compaction-economics.md) — compact, rewind or clear: warm vs cold cache
 22. [Idle Burn and Usage Audit](22-idle-burn-and-usage-audit.md) — tokens spent while idle, and A/B-testing harness changes
 23. [Doctor and Prompt Audit](23-doctor-prompt-audit.md) — `/doctor prompt-audit` and `/skill-doctor` to clean instruction files
+24. [Field Notes: Designer Workflow](24-field-notes-designer-workflow.md) — a product designer's real AI workflow, and the token timeline of a session
 
 ## Scripts
 
@@ -37,6 +38,7 @@ Read each step in order, or jump to the one you need.
 - [`scripts/statusline.py`](scripts/statusline.py) — 3-line status bar, zero model tokens
 - [`scripts/list_free_models.py`](scripts/list_free_models.py) — list free OpenCode models from models.dev
 - [`scripts/fetch_subtitles.py`](scripts/fetch_subtitles.py) — YouTube subtitles to plain text without the model
+- [`scripts/session_timeline.py`](scripts/session_timeline.py) — per-message token timeline of a Claude Code session
 
 ## Cache discipline (harness)
 
