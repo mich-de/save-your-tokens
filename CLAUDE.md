@@ -36,6 +36,7 @@ Read each step in order, or jump to the one you need.
 - [`scripts/extract_image_ocr.py`](scripts/extract_image_ocr.py) — screenshot OCR without the model
 - [`scripts/statusline.py`](scripts/statusline.py) — 3-line status bar, zero model tokens
 - [`scripts/list_free_models.py`](scripts/list_free_models.py) — list free OpenCode models from models.dev
+- [`scripts/fetch_subtitles.py`](scripts/fetch_subtitles.py) — YouTube subtitles to plain text without the model
 
 ## Cache discipline (harness)
 

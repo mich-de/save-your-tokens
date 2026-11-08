@@ -83,6 +83,16 @@ python scripts/extract_image_ocr.py screenshot.png output.txt
 
 Requires `tesseract` installed and in PATH. Uses Italian + English by default.
 
+## Video subtitles
+
+The model can't watch a video, and a cloud session usually can't fetch it: YouTube blocks data-center IPs ("Sign in to confirm you're not a bot"). Fetch the subtitles on your own machine and paste the text:
+
+```bash
+python scripts/fetch_subtitles.py https://youtu.be/VIDEO_ID output.txt --lang it
+```
+
+Requires `yt-dlp` (`pip install yt-dlp`). The script takes manual or auto-generated subtitles, removes timestamps, tags and the repeated lines of auto-captions, and writes plain text. If YouTube still asks for a login, add `--browser chrome` (or `firefox`, `edge`) to use your browser's cookies. Exit code 3 means the video has no subtitles in that language.
+
 ## Visual exception
 
 When charts, UI mockups or diagrams need to be **seen** (not just read as text), use the model's native image reading. The scripts above are only for text content in images.

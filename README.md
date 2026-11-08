@@ -21,7 +21,7 @@ A set of rules, scripts and conventions born from real daily use of Claude Code,
 
 See **[CLAUDE.md](CLAUDE.md)** for the full index — each step is a separate file you can read in order or jump to directly.
 
-The `scripts/` folder contains four Python utilities that replace expensive model calls:
+The `scripts/` folder contains five Python utilities that replace expensive model calls:
 
 | Script | Replaces | Requires |
 |---|---|---|
@@ -29,6 +29,7 @@ The `scripts/` folder contains four Python utilities that replace expensive mode
 | `extract_image_ocr.py` | Vision model on text screenshots | `tesseract` |
 | `list_free_models.py` | Browsing for free OpenCode models | (stdlib only) |
 | `statusline.py` | Checking `/context`, `/usage` and network by hand ([step 18](18-status-line.md)) | (stdlib only) |
+| `fetch_subtitles.py` | Asking the model about a video it can't watch ([step 07](07-deterministic-hooks-and-media.md)) | `yt-dlp` |
 
 ## Quick start
 
