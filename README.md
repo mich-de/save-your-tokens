@@ -19,7 +19,7 @@ A set of rules, scripts and conventions born from real daily use of Claude Code,
 
 ## Structure
 
-See **[CLAUDE.md](CLAUDE.md)** for the full index — each step is a separate file you can read in order or jump to directly.
+See **[CLAUDE.md](CLAUDE.md)**: a router that maps each situation to one step file or one script, so only that step is read. `scripts/hooks/token_router.py` applies the same routing as a Claude Code hook (deny native PDF reads, point to scripts, resume from `HANDOFF.md`); this repo registers it in `.claude/settings.json`.
 
 The `scripts/` folder contains six Python utilities that replace expensive model calls:
 
