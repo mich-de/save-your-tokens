@@ -19,9 +19,9 @@ A set of rules, scripts and conventions born from real daily use of Claude Code,
 
 ## Structure
 
-See **[CLAUDE.md](CLAUDE.md)** for the full index — each step is a separate file you can read in order or jump to directly.
+See **[CLAUDE.md](CLAUDE.md)**: a router that maps each situation to one step file or one script, so only that step is read. `scripts/hooks/token_router.py` applies the same routing as a Claude Code hook (deny native PDF reads, point to scripts, resume from `HANDOFF.md`); this repo registers it in `.claude/settings.json`.
 
-The `scripts/` folder contains four Python utilities that replace expensive model calls:
+The `scripts/` folder contains six Python utilities that replace expensive model calls:
 
 | Script | Replaces | Requires |
 |---|---|---|
@@ -29,6 +29,8 @@ The `scripts/` folder contains four Python utilities that replace expensive mode
 | `extract_image_ocr.py` | Vision model on text screenshots | `tesseract` |
 | `list_free_models.py` | Browsing for free OpenCode models | (stdlib only) |
 | `statusline.py` | Checking `/context`, `/usage` and network by hand ([step 18](18-status-line.md)) | (stdlib only) |
+| `fetch_subtitles.py` | Asking the model about a video it can't watch ([step 07](07-deterministic-hooks-and-media.md)) | `yt-dlp` |
+| `session_timeline.py` | Guessing where a session spent its tokens ([step 24](24-field-notes-designer-workflow.md)) | (stdlib only) |
 
 ## Quick start
 

@@ -31,6 +31,37 @@ Common caveats:
 
 To browse more: [loqimean/awesome-claude-code-hooks](https://github.com/loqimean/awesome-claude-code-hooks) (curated, by category).
 
+## Router hook
+
+`scripts/hooks/token_router.py` turns the routing tables of `CLAUDE.md` into code. One file, three events, standard library only, always exits 0 so a bug never blocks the session.
+
+| Event | What it does | Cost |
+|---|---|---|
+| `UserPromptSubmit` | Scans the prompt for triggers (YouTube URL, `.pdf`, UI words, "subagent", "/model", "MCP", "token"…) and injects **one line**: the step to read or the script to run. Max two pointers. | ~40 tokens, only when a trigger matches |
+| `PreToolUse` on `Read` | PDF → `deny`, with the `extract_pdf.py` command as the reason. Image → `ask`, so you confirm only when it must be seen. | 0 |
+| `SessionStart` | `HANDOFF.md` modified in the last 2 h → "read it and resume". Skipped on `compact`. | ~40 tokens, once |
+
+Test it without Claude:
+
+```bash
+echo '{"prompt":"leggi report.pdf"}' | python3 scripts/hooks/token_router.py prompt
+echo '{"tool_name":"Read","tool_input":{"file_path":"/x/doc.pdf"}}' | python3 scripts/hooks/token_router.py pretool
+```
+
+This repo registers it in `.claude/settings.json` (project scope). To run it in every project, copy the script somewhere stable and register it in `~/.claude/settings.json` with an absolute path:
+
+```json
+{
+  "hooks": {
+    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python3 ~/.claude/hooks/token_router.py prompt", "timeout": 5}]}],
+    "PreToolUse": [{"matcher": "Read", "hooks": [{"type": "command", "command": "python3 ~/.claude/hooks/token_router.py pretool", "timeout": 5}]}],
+    "SessionStart": [{"hooks": [{"type": "command", "command": "python3 ~/.claude/hooks/token_router.py start", "timeout": 5}]}]
+  }
+}
+```
+
+Set `SYT_DIR` to the folder that holds the step files if the pointers should name them. On Windows use `python` instead of `python3`. Tune the triggers in the `TRIGGER` table at the top of the script: every rule you add is a rule the model no longer has to remember, but check what it injects ([step 22](22-idle-burn-and-usage-audit.md), A/B).
+
 ## Install globally (all projects)
 
 Hooks at **user** level (`~/.claude/`) run in every project; project-level ones (`.claude/` in the repo) only there.
@@ -82,6 +113,16 @@ python scripts/extract_image_ocr.py screenshot.png output.txt
 ```
 
 Requires `tesseract` installed and in PATH. Uses Italian + English by default.
+
+## Video subtitles
+
+The model can't watch a video, and a cloud session usually can't fetch it: YouTube blocks data-center IPs ("Sign in to confirm you're not a bot"). Fetch the subtitles on your own machine and paste the text:
+
+```bash
+python scripts/fetch_subtitles.py https://youtu.be/VIDEO_ID output.txt --lang it
+```
+
+Requires `yt-dlp` (`pip install yt-dlp`). The script takes manual or auto-generated subtitles, removes timestamps, tags and the repeated lines of auto-captions, and writes plain text. If YouTube still asks for a login, add `--browser chrome` (or `firefox`, `edge`) to use your browser's cookies. Exit code 3 means the video has no subtitles in that language.
 
 ## Visual exception
 
